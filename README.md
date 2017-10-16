@@ -24,13 +24,16 @@ Once everything is setup correctly you should be able to create the VMs that are
 
 A test setup that is included (in vars.yml.dist) will create 2 VMs, but you can create as many as you want.
 
-**NOTE**: You should copy vars.yml.dist to vars.yml and edit it to fit your needs, make sure you use the correct key pair!
+**NOTE**: You should copy vars.yml.dist to vars.yml and edit it to fit your needs, make sure you use the correct key pair! If you do not use the AWS ubuntu image, you will have to adapt the playbooks as well ...
 
 To create the VMs execute the following :
 
     ansible-playbook create-vm.yml
-    
-To destroy the VMs execute the following :
+
+Once all VMs are actually running (check on the [AWS Lightsail dashboard](https://lightsail.aws.amazon.com/ls/webapp/home/resources)) you can provision all VMs by executing the following :
+
+    ./provision.sh
+
+To destroy the VMs (after running the load test) execute the following :
 
     ansible-playbook destroy-vm.yml
-

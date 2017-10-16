@@ -1,11 +1,16 @@
 ---
 vm:
-    aws:
-        region: eu-central-1
-        zone: eu-central-1a
-        blueprint: ubuntu_16_04
-        bundle: nano_1_0
-        key_pair: id_rsa
-    hosts:
-      - nascom-jmeter1
-      - nascom-jmeter2
+  aws:
+    region: eu-central-1
+    zone: eu-central-1a
+    blueprint: ubuntu_16_04
+    bundle: nano_1_0
+    key_pair: id_rsa
+  hosts:
+    - nascom-jmeter1
+    - nascom-jmeter2
+  tools:
+    - htop
+    - iotop
+    - unzip
+    - vim
