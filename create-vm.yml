@@ -1,0 +1,16 @@
+- name: Create lightsail VMs
+  hosts: localhost
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Create lightsail VMs
+      lightsail:
+        state: present
+        name: "{{ item }}"
+        region: "{{ vm.aws.region }}"
+        zone: "{{ vm.aws.zone }}"
+        blueprint_id: "{{ vm.aws.blueprint }}"
+        bundle_id: "{{ vm.aws.bundle }}"
+        key_pair_name: "{{ vm.aws.key_pair }}"
+        wait: yes
+      with_items: "{{ vm.hosts }}"

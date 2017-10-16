@@ -1,0 +1,11 @@
+- name: Destroy lightsail VMs
+  hosts: localhost
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Destroy lightsail VMs
+      lightsail:
+        state: absent
+        name: "{{ item }}"
+        region: eu-central-1
+      with_items: "{{ vm.hosts }}"
