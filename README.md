@@ -19,12 +19,16 @@ On a Ubuntu 16.04 system you can do that by executing the following :
 Make sure you setup awscli to connect with your Amazon credentials by executing :
 
     aws configure
-    
+
+And finally create a keypair to be used for the Lightsail VMs & upload the public key to Lightsail :
+
+    ssh-keygen -t rsa -b 4096 -C "jmeter@domain.com" -f ~/.ssh/id_jmeter
+
 Once everything is setup correctly you should be able to create the VMs that are needed.
 
 A test setup that is included (in vars.yml.dist) will create 2 VMs, but you can create as many as you want.
 
-**NOTE**: You should copy vars.yml.dist to vars.yml and edit it to fit your needs, make sure you use the correct key pair! If you do not use the AWS ubuntu image, you will have to adapt the playbooks as well ...
+**NOTE**: You should copy vars.yml.dist to vars.yml and edit it to fit your needs, make sure you use the correct key pair! If you do not use the AWS ubuntu image, you might have to adapt the playbooks as well ...
 
 To create the VMs execute the following :
 
