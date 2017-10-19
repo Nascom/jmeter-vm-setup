@@ -7,5 +7,5 @@
       lightsail:
         state: absent
         name: "{{ item }}"
-        region: eu-central-1
+        region: "{{ vm.aws.region }}"
       with_items: "{{ vm.hosts }}"

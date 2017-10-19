@@ -8,9 +8,9 @@ do
   vmip=$(aws lightsail get-instance --instance-name $instance --query 'instance.publicIpAddress' --output text)
   echo "$vmip ansible_user=${var_vm_user} ansible_ssh_private_key_file=$HOME/.ssh/${var_vm_aws_key_pair} ansible_python_interpreter=/usr/bin/python3" >> hosts.ini
 done
-#export ANSIBLE_HOST_KEY_CHECKING=False
-#ansible-playbook provision-vm.yml -i hosts.ini
-#unset ANSIBLE_HOST_KEY_CHECKING
+export ANSIBLE_HOST_KEY_CHECKING=False
+ansible-playbook provision-vm.yml -i hosts.ini
+unset ANSIBLE_HOST_KEY_CHECKING
 
 ips=""
 for instance in ${var_vm_hosts[@]}
