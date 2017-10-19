@@ -3,7 +3,19 @@
   vars_files:
     - vars.yml
   tasks:
-    - name: Create lightsail VMs
+    - name: Create lightsail jmeter client VM
+      lightsail:
+        state: present
+        name: "{{ vm.client }}"
+        region: "{{ vm.aws.region }}"
+        zone: "{{ vm.aws.zone }}"
+        blueprint_id: "{{ vm.aws.blueprint }}"
+        bundle_id: "{{ vm.aws.bundle }}"
+        key_pair_name: "{{ vm.aws.key_pair }}"
+        wait: yes
+        wait_timeout: 300
+
+    - name: Create lightsail jmeter server VMs
       lightsail:
         state: present
         name: "{{ item }}"
@@ -13,4 +25,5 @@
         bundle_id: "{{ vm.aws.bundle }}"
         key_pair_name: "{{ vm.aws.key_pair }}"
         wait: yes
-      with_items: "{{ vm.hosts }}"
+        wait_timeout: 300
+      with_items: "{{ vm.servers }}"

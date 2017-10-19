@@ -1,48 +1,14 @@
-- name: Provision lightsail VMs
-  hosts: all
+- name: Provision lightsail client VM
+  hosts: client
   vars_files:
     - vars.yml
-  tasks:
-    - name: Install aptitude
-      become: true
-      apt:
-        name: aptitude
+  roles:
+    - jmeter-client
 
-    - name: Update APT package manager repositories cache
-      become: true
-      apt:
-        update_cache: yes
-
-    - name: Upgrade installed packages
-      become: true
-      apt:
-        upgrade: safe
-
-    - name: Install utilities
-      become: true
-      apt:
-        name: "{{ item }}"
-      with_items: "{{ vm.tools }}"
-
-    - name: Install Java 8 JRE
-      become: true
-      apt:
-        name: openjdk-8-jre-headless
-
-    - name: Install JMeter
-      unarchive:
-        src: "http://apache.belnet.be/jmeter/binaries/apache-jmeter-{{ jmeter.version }}.tgz"
-        dest: "~/"
-        remote_src: yes
-
-    - name: Install plugins
-      unarchive:
-        src: "{{ item }}"
-        dest: "~/apache-jmeter-{{ jmeter.version }}/"
-        remote_src: yes
-      with_items: "{{ jmeter.plugins }}"
-
-    - name: Start JMeter server in background
-      shell: "nohup bin/jmeter-server -Djava.rmi.server.hostname=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f8)  >/dev/null 2>&1 &"
-      args:
-        chdir: "~/apache-jmeter-{{ jmeter.version }}/"
+- name: Provision lightsail server VMs
+  hosts: servers
+  vars_files:
+    - vars.yml
+  roles:
+    - jmeter-client
+    - jmeter-server
