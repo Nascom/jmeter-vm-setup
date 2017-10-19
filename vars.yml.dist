@@ -12,9 +12,10 @@ vm:
     bundle: nano_1_0
     key_pair: id_jmeter
   user: ubuntu
-  hosts:
-    - nascom-jmeter1
-    - nascom-jmeter2
+  client: jmeter-client
+  servers:
+    - jmeter-server1
+    - jmeter-server2
   tools:
     - htop
     - iotop
