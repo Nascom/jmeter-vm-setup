@@ -28,3 +28,21 @@
       become: true
       apt:
         name: openjdk-8-jre-headless
+
+    - name: Install JMeter
+      unarchive:
+        src: "http://apache.belnet.be/jmeter/binaries/apache-jmeter-{{ jmeter.version }}.tgz"
+        dest: "~/"
+        remote_src: yes
+
+    - name: Install plugins
+      unarchive:
+        src: "{{ item }}"
+        dest: "~/apache-jmeter-{{ jmeter.version }}/"
+        remote_src: yes
+      with_items: "{{ jmeter.plugins }}"
+
+    - name: Start JMeter server in background
+      shell: "nohup bin/jmeter-server -Djava.rmi.server.hostname=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f8)  >/dev/null 2>&1 &"
+      args:
+        chdir: "~/apache-jmeter-{{ jmeter.version }}/"

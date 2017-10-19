@@ -1,11 +1,17 @@
 ---
+jmeter:
+  version: 3.3
+  plugins:
+    - https://jmeter-plugins.org/files/packages/jpgc-casutg-2.2.zip
+
 vm:
   aws:
     region: eu-central-1
     zone: eu-central-1a
     blueprint: ubuntu_16_04
     bundle: nano_1_0
-    key_pair: id_rsa
+    key_pair: id_jmeter
+  user: ubuntu
   hosts:
     - nascom-jmeter1
     - nascom-jmeter2
