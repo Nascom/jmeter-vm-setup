@@ -37,3 +37,9 @@
     dest: "~/apache-jmeter-{{ jmeter.version }}/"
     remote_src: yes
   with_items: "{{ jmeter.plugins }}"
+
+- name: Set Java heap size
+  lineinfile:
+    path: "~/apache-jmeter-{{ jmeter.version }}/bin/jmeter"
+    regexp: '^HEAP='
+    line: 'HEAP="-Xms{{ java.memory }} -Xmx{{ java.memory }}"'

@@ -21,3 +21,6 @@ vm:
     - iotop
     - unzip
     - vim
+
+java:
+  memory: 400m
