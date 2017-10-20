@@ -3,9 +3,15 @@
   vars_files:
     - vars.yml
   tasks:
-    - name: Destroy lightsail VMs
+    - name: Destroy lightsail client VM
+      lightsail:
+        state: absent
+        name: "{{ vm.client }}"
+        region: "{{ vm.aws.region }}"
+
+    - name: Destroy lightsail server VMs
       lightsail:
         state: absent
         name: "{{ item }}"
         region: "{{ vm.aws.region }}"
-      with_items: "{{ vm.hosts }}"
+      with_items: "{{ vm.servers }}"
