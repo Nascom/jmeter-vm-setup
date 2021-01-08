@@ -2,20 +2,25 @@
 
 This repository contains all tools necessary to generate some Amazon Lightsail VMs to do load testing.
 
+## Initial setup
+
 First of all you need to install [ansible](http://docs.ansible.com/ansible/latest/intro_installation.html), [awscli](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) and some extra dependencies.
 
-On a Ubuntu 16.04 system you can do that by executing the following :
+On a Ubuntu 20.04 system you can do that by executing the following :
 
     sudo apt-get update
     sudo apt-get install software-properties-common
-    sudo apt-add-repository ppa:ansible/ansible
-    sudo apt-get update
     sudo apt-get install ansible
     
-    pip install awscli
-    
-    pip install boto3
-    
+    pip3 install awscli
+    pip3 install boto3
+
+**NOTE**: If you get an error that awscli is already installed, check if it was installed via apt-get and if so, remove the package (apt-get remove --purge awscli).
+
+Add $HOME/.local/bin to your $PATH :
+
+    export PATH=~/.local/bin:$PATH
+
 Make sure you setup awscli to connect with your Amazon credentials by executing :
 
     aws configure
@@ -23,6 +28,9 @@ Make sure you setup awscli to connect with your Amazon credentials by executing 
 And finally create a keypair to be used for the Lightsail VMs & upload the public key to Lightsail :
 
     ssh-keygen -t rsa -b 4096 -C "jmeter@domain.com" -f ~/.ssh/id_jmeter
+
+
+## Run a load test
 
 Once everything is setup correctly you should be able to create the VMs that are needed.
 
@@ -38,6 +46,18 @@ Once all VMs are actually running (check on the [AWS Lightsail dashboard](https:
 
     ./provision.sh
 
-To destroy the VMs (after running the load test) execute the following :
+To destroy the VMs (after running the load test and copying the results) execute the following :
 
     ansible-playbook destroy-vm.yml
+
+
+## Configuration
+
+At the time of writing the available bundle ids for Lightsail are:
+- nano_2_0 (512 MB RAM, 1 vCPU)
+- micro_2_0 (1 Gb RAM, 1 vCPU)
+- small_2_0 (2 GB RAM, 1 vCPU)
+- medium_2_0 (4 GB RAM, 2 vCPUs)
+- large_2_0 (8 GB RAM, 2 vCPUs)
+- xlarge_2_0 (16 GB RAM, 4 vCPUs)
+- 2xlarge_2_0 (32 GB RAM, 8 vCPUs)
