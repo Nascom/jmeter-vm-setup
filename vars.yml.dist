@@ -8,7 +8,7 @@ vm:
   aws:
     region: eu-central-1
     zone: eu-central-1a
-    blueprint: ubuntu_16_04
+    blueprint: ubuntu_20_04
     bundle: nano_1_0
     key_pair: id_jmeter
   user: ubuntu

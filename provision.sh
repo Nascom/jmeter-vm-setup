@@ -27,7 +27,7 @@ do
   fi
 done
 
-echo "You should now copy your JMeter jmx file to the client Lightsail VM (IP : $vmclientip), ssh into it, change to the apache jmeter folder and add the following parameter when you execute your load test : \"-R $ips\""
+echo "You should now copy your JMeter jmx file to the client Lightsail VM (IP : $vmclientip), ssh into it, go to the apache jmeter folder and add the following parameter when you execute your load test : \"-R $ips\""
 echo
 echo "ie. bin/jmeter -n -t script.jmx -R $ips"
 echo
